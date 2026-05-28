@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Cat: Decodable, Equatable {
+struct Cat: Decodable, Hashable {
     let id: String
     let url: URL
 }

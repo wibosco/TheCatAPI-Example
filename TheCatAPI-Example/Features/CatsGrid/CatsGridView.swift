@@ -10,8 +10,11 @@ import SwiftUI
 struct CatsGridView: View {
     @State private var viewModel: CatsGridViewModel
 
-    init(repository: CatRepository) {
-        _viewModel = State(wrappedValue: CatsGridViewModel(repository: repository))
+    init(coordinator: AppCoordinator,
+         repository: CatRepository) {
+        let viewModel = CatsGridViewModel(coordinator: coordinator,
+                                          repository: repository)
+        _viewModel = State(wrappedValue: viewModel)
     }
 
     var body: some View {
@@ -27,9 +30,10 @@ struct CatsGridView: View {
                 failedView
             }
         }
-        .task {
-            await viewModel.retrieveCats()
-        }
+//        .task {
+//            await viewModel.retrieveCats()
+//        }
+        .navigationTitle("Cats")
     }
 
     private var emptyView: some View {
@@ -46,10 +50,15 @@ struct CatsGridView: View {
         ScrollView {
             LazyVGrid(columns: GridItem.threeColumnLayout(), spacing: 8) {
                 ForEach(viewModel.items) { itemViewModel in
-                    CatCell(viewModel: itemViewModel)
-                        .onAppear {
-                            viewModel.itemDidAppear(itemViewModel)
-                        }
+                    Button {
+                        viewModel.itemTapped(itemViewModel)
+                    } label : {
+                        CatCell(viewModel: itemViewModel)
+                            .onAppear {
+                                viewModel.itemDidAppear(itemViewModel)
+                            }
+                    }
+                    .buttonStyle(ScaleButtonStyle())
                 }
             }
 
@@ -77,6 +86,16 @@ private extension GridItem {
         ]
         
         return columns
+    }
+}
+
+private struct ScaleButtonStyle: ButtonStyle {
+    var scale: CGFloat = 0.95
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? scale : 1.0)
+            .animation(.spring(response: 0.3, dampingFraction: 0.6), value: configuration.isPressed)
     }
 }
 

@@ -9,9 +9,24 @@ import SwiftUI
 
 @main
 struct TheCatAPI_ExampleApp: App {
+    @State private var coordinator: AppCoordinator
+    private let repository: CatRepository
+    
+    // MARK: - Init
+    
+    init() {
+        let coordinator = AppCoordinator()
+        _coordinator = State(initialValue: coordinator)
+        
+        self.repository = CatRepository()
+    }
+    
+    // MARK: - App
+    
     var body: some Scene {
         WindowGroup {
-            CatsGridView(repository: CatRepository())
+            RootView(coordinator: coordinator,
+                     repository: repository)
         }
     }
 }
