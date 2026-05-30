@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RootView: View {
     @Bindable var coordinator: AppCoordinator
-    let repository: CatRepository
+    let service: CatService
 
     // MARK: - View
 
@@ -28,8 +28,8 @@ struct RootView: View {
     private func routeView(for route: Route) -> some View {
         switch route {
         case .grid:
-            CatsGridView(coordinator: coordinator,
-                         repository: repository)
+            CatGridView(coordinator: coordinator,
+                        service: service)
         case .detail:
             EmptyView()
         }

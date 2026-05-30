@@ -10,7 +10,7 @@ import SwiftUI
 @main
 struct TheCatAPI_ExampleApp: App {
     @State private var coordinator: AppCoordinator
-    private let repository: CatRepository
+    private let service: CatService
     
     // MARK: - Init
     
@@ -18,7 +18,9 @@ struct TheCatAPI_ExampleApp: App {
         let coordinator = AppCoordinator()
         _coordinator = State(initialValue: coordinator)
         
-        self.repository = CatRepository()
+        let repository = CatRepository()
+            
+        self.service = CatService(repository: repository)
     }
     
     // MARK: - App
@@ -26,7 +28,7 @@ struct TheCatAPI_ExampleApp: App {
     var body: some Scene {
         WindowGroup {
             RootView(coordinator: coordinator,
-                     repository: repository)
+                     service: service)
         }
     }
 }

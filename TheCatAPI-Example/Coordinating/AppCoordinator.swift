@@ -9,7 +9,7 @@ import SwiftUI
 
 enum Route: Hashable {
     case grid
-    case detail(Cat)
+    case detail(CatViewModel)
 }
 
 @Observable

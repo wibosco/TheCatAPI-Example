@@ -40,11 +40,11 @@ actor CatRepository {
             """)
         }
         
+        let orderQueryItem = URLQueryItem(name: "order", value: "DESC")
         let limitQueryItem = URLQueryItem(name: "limit", value: "48")
-        let sizeQueryItem = URLQueryItem(name: "size", value: "thumb")
         let pageItem = URLQueryItem(name: "page", value: "\(page)")
         
-        let queryItems = [limitQueryItem, sizeQueryItem, pageItem]
+        let queryItems = [orderQueryItem, limitQueryItem, pageItem]
         
         var components = URLComponents()
         components.scheme = "https"

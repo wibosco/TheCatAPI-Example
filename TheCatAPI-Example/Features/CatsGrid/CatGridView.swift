@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct CatsGridView: View {
-    @State private var viewModel: CatsGridViewModel
+struct CatGridView: View {
+    @State private var viewModel: CatGridViewModel
 
     init(coordinator: AppCoordinator,
-         repository: CatRepository) {
-        let viewModel = CatsGridViewModel(coordinator: coordinator,
-                                          repository: repository)
+         service: CatService) {
+        let viewModel = CatGridViewModel(coordinator: coordinator,
+                                          service: service)
         _viewModel = State(wrappedValue: viewModel)
     }
 
@@ -30,9 +30,6 @@ struct CatsGridView: View {
                 failedView
             }
         }
-//        .task {
-//            await viewModel.retrieveCats()
-//        }
         .navigationTitle("Cats")
     }
 

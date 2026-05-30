@@ -1,13 +1,13 @@
 //
-//  CatCell.swift
+//  CatDetailView.swift
 //  TheCatAPI-Example
 //
-//  Created by William Boles on 24/05/2026.
+//  Created by William Boles on 29/05/2026.
 //
 
 import SwiftUI
 
-struct CatCell: View {
+struct CatDetailView: View {
     let viewModel: CatViewModel
     
     var body: some View {
@@ -20,7 +20,7 @@ struct CatCell: View {
                     .resizable()
                     .scaledToFill()
             case .failure:
-                Image(systemName: "photo")
+                Image(systemName: "exclamationmark.triangle")
                     .resizable()
                     .scaledToFit()
                     .padding()
@@ -28,20 +28,9 @@ struct CatCell: View {
                 EmptyView()
             }
         }
-        .aspectRatioContainer(1)
-    }
-}
-
-private extension View {
-    func aspectRatioContainer(_ ratio: CGFloat,
-                              contentMode: ContentMode = .fit) -> some View {
-        Color.clear
-            .aspectRatio(ratio, contentMode: contentMode)
-            .overlay { self }
-            .clipped()
     }
 }
 
 //#Preview {
-//    CatCell()
+//    CatDetailView()
 //}
