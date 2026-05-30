@@ -30,6 +30,9 @@ struct CatGridView: View {
                 failedView
             }
         }
+        .task {
+            await viewModel.loadFirstPageIfNeeded()
+        }
         .navigationTitle("Cats")
     }
 
@@ -51,8 +54,8 @@ struct CatGridView: View {
                         viewModel.itemTapped(itemViewModel)
                     } label : {
                         CatCell(viewModel: itemViewModel)
-                            .onAppear {
-                                viewModel.itemDidAppear(itemViewModel)
+                            .task {
+                                await viewModel.itemDidAppear(itemViewModel)
                             }
                     }
                     .buttonStyle(ScaleButtonStyle())

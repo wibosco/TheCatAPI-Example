@@ -30,8 +30,8 @@ struct RootView: View {
         case .grid:
             CatGridView(coordinator: coordinator,
                         service: service)
-        case .detail:
-            EmptyView()
+        case let .detail(viewModel):
+            CatDetailView(viewModel: viewModel)
         }
     }
 }

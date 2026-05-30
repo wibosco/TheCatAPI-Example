@@ -18,9 +18,9 @@ struct CatDetailView: View {
             case let .success(image):
                 image
                     .resizable()
-                    .scaledToFill()
+                    .scaledToFit()
             case .failure:
-                Image(systemName: "exclamationmark.triangle")
+                Image(systemName: "photo")
                     .resizable()
                     .scaledToFit()
                     .padding()

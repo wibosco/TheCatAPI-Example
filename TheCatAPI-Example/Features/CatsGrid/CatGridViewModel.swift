@@ -41,8 +41,10 @@ final class CatGridViewModel {
     
     // MARK: - Subscribe
     
-    func subscribe() {
-        service.statePublisher.sink { [weak self] serviceState in
+    private func subscribe() {
+        service.statePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] serviceState in
             guard let self else {
                 return
             }
@@ -72,43 +74,23 @@ final class CatGridViewModel {
         }
     }
     
+    // MARK: - Load
+    
+    func loadFirstPageIfNeeded() async {
+        guard state == .idle else { return }
+        await service.loadNextPage()
+    }
+    
     // MARK: - Item
     
-    func itemDidAppear(_ item: CatViewModel) {
+    func itemDidAppear(_ item: CatViewModel) async {
         guard state != .paginating else { return }
         guard prefetchTriggerIDs.contains(item.id) else { return }
         
-        Task {
-            await service.loadNextPage()
-        }
+        await service.loadNextPage()
     }
     
     func itemTapped(_ item: CatViewModel) {
         coordinator.push(route: .detail(item))
-    }
-}
-
-@Observable
-final class CatViewModel: Identifiable, Hashable {
-    let id: String
-    let url: URL
-    
-    // MARK: - Init
-    
-    init(cat: Cat) {
-        self.id = cat.id
-        self.url = cat.url
-    }
-    
-    // MARK: - Equatable
-
-    static func == (lhs: CatViewModel, rhs: CatViewModel) -> Bool {
-        lhs.id == rhs.id
-    }
-
-    // MARK: - Hashable
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
     }
 }

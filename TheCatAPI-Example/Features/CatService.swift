@@ -30,6 +30,18 @@ actor CatService {
 
     private let repository: CatRepository
     
+    private var isLoading: Bool {
+        switch self.stateSubject.value {
+        case .loading,
+                .paginating:
+            return true
+        case .idle,
+                .loaded,
+                .failed:
+            return false
+        }
+    }
+    
     // MARK: - Init
     
     init(repository: CatRepository) {
@@ -40,11 +52,12 @@ actor CatService {
     
     func loadNextPage() async {
 //        guard canLoadMore else { return }
-        guard !stateSubject.value.isFetching else { return }
+        guard !isLoading else { return }
 
         stateSubject.send(cats.isEmpty ? .loading : .paginating)
 
         do {
+            //TODO: Replace with page of response rather than just the cats
             let cats = try await repository.retrieveCats(nextPage)
             self.cats.append(contentsOf: cats)
             totalCount = cats.count
@@ -59,19 +72,5 @@ actor CatService {
     private var canLoadMore: Bool {
         // TODO: Implement pagination stopping mechanism
         cats.isEmpty || cats.count < totalCount
-    }
-}
-
-private extension CatService.State {
-    nonisolated var isFetching: Bool {
-        switch self {
-        case .loading,
-                .paginating:
-            return true
-        case .idle,
-                .loaded,
-                .failed:
-            return false
-        }
     }
 }
