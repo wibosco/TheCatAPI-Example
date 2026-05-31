@@ -26,7 +26,7 @@ actor CatService {
 
     private var cats: [Cat] = []
     private var nextPage = 0
-    private var totalCount = 0
+    private var totalPageCount = Int.max
 
     private let repository: CatRepository
     
@@ -51,16 +51,16 @@ actor CatService {
     // MARK: - Load
     
     func loadNextPage() async {
-//        guard canLoadMore else { return }
+        guard canLoadMore else { return }
         guard !isLoading else { return }
 
         stateSubject.send(cats.isEmpty ? .loading : .paginating)
 
         do {
-            //TODO: Replace with page of response rather than just the cats
-            let cats = try await repository.retrieveCats(nextPage)
-            self.cats.append(contentsOf: cats)
-            totalCount = cats.count
+            let page = try await repository.retrieveCats(nextPage)
+            self.cats.append(contentsOf: page.cats)
+            
+            totalPageCount = page.totalPages == 0 ? Int.max : page.totalPages
             nextPage += 1
             
             stateSubject.send(.loaded(cats))
@@ -70,7 +70,6 @@ actor CatService {
     }
     
     private var canLoadMore: Bool {
-        // TODO: Implement pagination stopping mechanism
-        cats.isEmpty || cats.count < totalCount
+        nextPage < totalPageCount
     }
 }

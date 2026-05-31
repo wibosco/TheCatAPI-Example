@@ -21,6 +21,8 @@ final class CatGridViewModel {
     private(set) var state: State = .idle
     private(set) var items: [CatViewModel] = []
 
+    @ObservationIgnored private var itemIDs: Set<CatViewModel.ID> = []
+    
     @ObservationIgnored private let prefetchDistance = 5
     @ObservationIgnored private var prefetchTriggerIDs: Set<CatViewModel.ID> = []
 
@@ -57,7 +59,20 @@ final class CatGridViewModel {
             case .paginating:
                 self.state = .paginating
             case let .loaded(cats):
-                self.items.append(contentsOf: cats.map { CatViewModel(cat: $0) })
+                var newViewModels = [CatViewModel]()
+                
+                for cat in cats {
+                    let viewModel = CatViewModel(cat: cat)
+                    
+                    guard !itemIDs.contains(viewModel.id) else {
+                        continue
+                    }
+                    
+                    itemIDs.insert(viewModel.id)
+                    newViewModels.append(viewModel)
+                }
+                
+                self.items.append(contentsOf: newViewModels)
                 
                 let triggerSlice = self.items.suffix(self.prefetchDistance)
                 self.prefetchTriggerIDs = Set(triggerSlice.map(\.id))

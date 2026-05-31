@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4302869E2FCCE7B100BB7E01 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 4302869D2FCCE7B100BB7E01 /* Secrets.xcconfig */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		431C17802FC393DF00BBBAA0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -17,13 +21,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4302869D2FCCE7B100BB7E01 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		431C17722FC393DE00BBBAA0 /* TheCatAPI-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TheCatAPI-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		431C177F2FC393DF00BBBAA0 /* TheCatAPI-ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TheCatAPI-ExampleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4302869C2FCCE78800BB7E01 /* Exceptions for "TheCatAPI-Example" folder in "TheCatAPI-Example" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 431C17712FC393DE00BBBAA0 /* TheCatAPI-Example */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		431C17742FC393DE00BBBAA0 /* TheCatAPI-Example */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4302869C2FCCE78800BB7E01 /* Exceptions for "TheCatAPI-Example" folder in "TheCatAPI-Example" target */,
+			);
 			path = "TheCatAPI-Example";
 			sourceTree = "<group>";
 		};
@@ -55,6 +73,7 @@
 		431C17692FC393DE00BBBAA0 = {
 			isa = PBXGroup;
 			children = (
+				4302869D2FCCE7B100BB7E01 /* Secrets.xcconfig */,
 				431C17742FC393DE00BBBAA0 /* TheCatAPI-Example */,
 				431C17822FC393DF00BBBAA0 /* TheCatAPI-ExampleTests */,
 				431C17732FC393DE00BBBAA0 /* Products */,
@@ -162,6 +181,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4302869E2FCCE7B100BB7E01 /* Secrets.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +350,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TheCatAPI-Example/Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -374,6 +395,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "TheCatAPI-Example/Info.plist";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
